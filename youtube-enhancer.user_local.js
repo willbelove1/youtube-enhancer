@@ -11,15 +11,16 @@
 // @grant        GM_setValue
 // @grant        GM_xmlhttpRequest
 // @connect      c.blahaj.ca
-// @require      https://cdn.jsdelivr.net/gh/willbelove1/youtube-enhancer@main/YouTubeEnhancerCore.js
-// @require      https://cdn.jsdelivr.net/gh/willbelove1/youtube-enhancer@main/YouTubePlus.js
-// @require      https://cdn.jsdelivr.net/gh/willbelove1/youtube-enhancer@main/RemoveShareIdentifier.js
-// @require      https://cdn.jsdelivr.net/gh/willbelove1/youtube-enhancer@main/PremiumLogo.js
-// @require      https://cdn.jsdelivr.net/gh/willbelove1/youtube-enhancer@main/AutoExpandComments.js
-// @require      https://cdn.jsdelivr.net/gh/willbelove1/youtube-enhancer@main/DirectDownloader.js
-// @require      https://cdn.jsdelivr.net/gh/willbelove1/youtube-enhancer@main/AdBlock.js
+// @require      file:///C:/youtube-enhancer/YouTubeEnhancerCore.js
+// @require      file:///C:/youtube-enhancer/YouTubePlus.js
+// @require      file:///C:/youtube-enhancer/RemoveShareIdentifier.js
+// @require      file:///C:/youtube-enhancer/PremiumLogo.js
+// @require      file:///C:/youtube-enhancer/AutoExpandComments.js
+// @require      file:///C:/youtube-enhancer/DirectDownloader.js
+// @require      file:///C:/youtube-enhancer/AdBlock.js
+// @updateURL    file:///C:/youtube-enhancer/youtube-enhancer.user.js
+// @downloadURL  file:///C:/youtube-enhancer/youtube-enhancer.user.js
 // ==/UserScript==
-
 
 (function () {
     "use strict";
@@ -44,7 +45,7 @@
         ];
         requiredModules.forEach((mod) => {
             if (!window[`${mod}Module`]) {
-                console.warn(`[YouTubeEnhancer] Module ${mod} không được tải. Kiểm tra URL @require.`);
+                console.warn(`[YouTubeEnhancer] Module ${mod} không được tải.`);
             } else {
                 console.log(`[YouTubeEnhancer] Module ${mod} đã tải.`);
             }
@@ -63,7 +64,7 @@
                 console.error("[YouTubeEnhancer] Lỗi khi khởi tạo core:", e);
             }
         } else {
-            console.error("[YouTubeEnhancer] Core không được tải. Kiểm tra URL @require hoặc kết nối mạng.");
+            console.error("[YouTubeEnhancer] Core không được tải. Kiểm tra file module hoặc đường dẫn @require.");
         }
     }
 

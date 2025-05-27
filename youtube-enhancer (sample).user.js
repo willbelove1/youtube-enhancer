@@ -1,4 +1,3 @@
-
 // ==UserScript==
 // @name         YouTube Enhancer Framework
 // @namespace    http://tampermonkey.net/
@@ -11,7 +10,6 @@
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_xmlhttpRequest
-// @connect      c.blahaj.ca
 // @require      https://raw.githubusercontent.com/willbelove1/youtube-enhancer/refs/heads/main/YouTubeEnhancerCore.js
 // @require      https://raw.githubusercontent.com/willbelove1/youtube-enhancer/refs/heads/main/YouTubePlus.js
 // @require      https://raw.githubusercontent.com/willbelove1/youtube-enhancer/refs/heads/main/RemoveShareIdentifier.js
@@ -27,30 +25,17 @@
     "use strict";
 
     // Ngăn khởi tạo nhiều lần
-    if (window.__YT_ENHANCER_SKIP_INIT__) {
-        console.log("[YouTubeEnhancer] Framework đã được khởi tạo, bỏ qua.");
-        return;
-    }
-    window.__YT_ENHANCER_SKIP_INIT__ = true;
+    if (!window.__YT_ENHANCER_SKIP_INIT__) {
+        window.__YT_ENHANCER_SKIP_INIT__ = true;
 
-    // Đợi DOM tải xong để khởi tạo core
-    function initializeFramework() {
-        if (window.YouTubeEnhancerCoreInstance) {
-            try {
+        // Đợi DOM tải xong để khởi tạo core
+        window.addEventListener("load", () => {
+            if (window.YouTubeEnhancerCoreInstance) {
                 window.YouTubeEnhancerCoreInstance.init();
                 console.log("[YouTubeEnhancer] Framework khởi tạo thành công");
-            } catch (e) {
-                console.error("[YouTubeEnhancer] Lỗi khi khởi tạo core:", e);
+            } else {
+                console.error("[YouTubeEnhancer] Core không được tải. Kiểm tra @require.");
             }
-        } else {
-            console.error("[YouTubeEnhancer] Core không được tải. Kiểm tra các URL @require hoặc kết nối mạng.");
-        }
-    }
-
-    // Kiểm tra trạng thái DOM
-    if (document.readyState === "complete" || document.readyState === "interactive") {
-        initializeFramework();
-    } else {
-        window.addEventListener("load", initializeFramework);
+        });
     }
 })();
