@@ -23,33 +23,13 @@
 // ==/UserScript==
 
 (function () {
-    "use strict";
-
-    // Ngăn khởi tạo nhiều lần
-    if (window.__YT_ENHANCER_SKIP_INIT__) {
-        console.log("[YouTubeEnhancer] Framework đã được khởi tạo, bỏ qua.");
-        return;
-    }
-    window.__YT_ENHANCER_SKIP_INIT__ = true;
-
-    // Đợi DOM tải xong để khởi tạo core
-    function initializeFramework() {
-        if (window.YouTubeEnhancerCoreInstance) {
-            try {
-                window.YouTubeEnhancerCoreInstance.init();
-                console.log("[YouTubeEnhancer] Framework khởi tạo thành công");
-            } catch (e) {
-                console.error("[YouTubeEnhancer] Lỗi khi khởi tạo core:", e);
-            }
-        } else {
-            console.error("[YouTubeEnhancer] Core không được tải. Kiểm tra các URL @require hoặc kết nối mạng.");
-        }
-    }
-
-    // Kiểm tra trạng thái DOM
-    if (document.readyState === "complete" || document.readyState === "interactive") {
-        initializeFramework();
-    } else {
-        window.addEventListener("load", initializeFramework);
-    }
+    'use strict';
+    const core = new YouTubeEnhancerCore();
+    //core.registerModule(new YouTubeEnhancerCore());
+    core.registerModule(new RemoveShareIdentifierModule());
+    core.registerModule(new YouTubePlusModule());
+    core.registerModule(new PremiumLogoModule());
+    core.registerModule(new AutoExpandCommentsModule());
+    core.registerModule(new DirectDownloaderModule());
+    core.registerModule(new AdBlockModule());
 })();
